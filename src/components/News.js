@@ -45,6 +45,7 @@ const News = (props) => {
         console.log('useEffect() is called')
         document.title = `${capitalizeFirstLetter(props.category)} - NewsMonkey`
         updateNews()
+        //eslint-disable-next-line
     }, [])
 
     const fetchMoreData = async () => {
