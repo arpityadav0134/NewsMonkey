@@ -17,10 +17,10 @@ const News = (props) => {
     }
     const updateNews = async () => {
 
-        console.log('updateNews() is called')
-
         props.setProgress(10)
-        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${props.apikey}&pageSize=${props.pageSize}&page=${page}`
+        // const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${props.apikey}&pageSize=${props.pageSize}&page=${page}`
+
+        const url = `http://api.mediastack.com/v1/news?access_key=${props.apikey}&countries=${props.country}&categories=${props.category}&limit=${props.pageSize}&offset=${page}`
 
         setLoading(true)
 
@@ -29,8 +29,8 @@ const News = (props) => {
         let parsedData = await data.json()
         props.setProgress(80)
 
-        setArticles(parsedData.articles)
-        setTotalResults(parsedData.totalResults)
+        setArticles(parsedData.data)
+        setTotalResults(parsedData.pagination.total)
         setLoading(false)
         // setArticles(fakeResponse.articles)
         // setTotalResults(fakeResponse.totalResults)
@@ -50,15 +50,16 @@ const News = (props) => {
 
     const fetchMoreData = async () => {
 
-        console.log('fetchMoreDate() is called')
-        const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${props.apikey}&pageSize=${props.pageSize}&page=${page + 1}`
+        // const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apikey=${props.apikey}&pageSize=${props.pageSize}&page=${page + 1}`
+
+        const url = `http://api.mediastack.com/v1/news?access_key=${props.apikey}&countries=${props.country}&categories=${props.category}&limit=${props.pageSize}&offset=${page+1}`
 
         let data = await fetch(url)
         let parsedData = await data.json()
 
         setPage(page + 1)
-        setArticles(articles.concat(parsedData.articles))
-        setTotalResults(parsedData.totalResults)
+        setArticles(articles.concat(parsedData.data))
+        setTotalResults(parsedData.pagination.total)
         setLoading(false)
         // setArticles(fakeResponse.articles)
         // setTotalResults(fakeResponse.totalResults)
@@ -79,7 +80,7 @@ const News = (props) => {
                     <div className="row ">
                         {!loading && articles.map((ele, i) => {
                             return <div className="col-md-4" key={i}>
-                                <NewsItem title={ele.title ? ele.title : ""} description={ele.description ? ele.description.slice(0, 80) : ""} imgUrl={ele.urlToImage} newsUrl={ele.url} author={ele.author ? ele.author : 'Anonymous'} date={ele.publishedAt} source={ele.source.name} />
+                                <NewsItem title={ele.title ? ele.title : ""} description={ele.description ? ele.description.slice(0, 80) : ""} imgUrl={ele.image} newsUrl={ele.url} author={ele.author ? ele.author : 'Anonymous'} date={ele.published_at} source={ele.source} />
                             </div>
                         })}
                     </div>
