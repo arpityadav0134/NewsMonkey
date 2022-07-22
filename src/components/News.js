@@ -80,7 +80,7 @@ const News = (props) => {
                     <div className="row ">
                         {!loading && articles.map((ele, i) => {
                             return <div className="col-md-4" key={i}>
-                                <NewsItem title={ele.title ? ele.title : ""} description={ele.description ? ele.description.slice(0, 80) : ""} imgUrl={ele.image} newsUrl={ele.url} author={ele.author ? ele.author : 'Anonymous'} date={ele.published_at} source={ele.source} />
+                                <NewsItem title={ele.title ? ele.title : ""} description={ele.description ? ele.description.slice(0, 80) : ""} imgUrl={ele.image} newsUrl={ele.url} author={ele.author ? ele.author : 'Anonymous'} date={ele.published_at} source={ele.source.slice(0, 30)} />
                             </div>
                         })}
                     </div>
