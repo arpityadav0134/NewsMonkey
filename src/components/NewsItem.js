@@ -18,7 +18,7 @@ const NewsItem = (props) => {
                     <h5 className="card-title">{title}</h5>
                     <p className="card-text">{description}...</p>
                     <p className="card-text">By-{author}, On: {new Date(date).toLocaleString()}</p>
-                    <a href={newsUrl} target='_blank' rel='noreferrer' className="btn btn-dark">Read more...</a>
+                    <a href={newsUrl} target='_blank' rel="noopener noreferrer" className="btn btn-dark">Read more...</a>
                 </div>
             </div>
         </div>
